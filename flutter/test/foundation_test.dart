@@ -31,10 +31,10 @@ void main() {
     });
 
     test("mulberry32 matches the JS implementation", () {
-      // مقدار مرجع از اجرای مستقیم پیاده‌سازی utils.ts در Node.
+      // مقدارهای مرجع از اجرای مستقیم پیاده‌سازی utils.ts در Node.
       final rand = mulberry32(1);
       expect(rand(), closeTo(0.6270739405881613, 1e-12));
-      expect(mulberry32(42)(), closeTo(0.9481023523062766, 1e-12));
+      expect(mulberry32(42)(), closeTo(0.6011037519201636, 1e-12));
     });
   });
 
@@ -61,8 +61,8 @@ void main() {
     test("leap years", () {
       expect(isLeapJalaliYear(1403), isTrue);
       expect(isLeapJalaliYear(1404), isFalse);
-      expect(JalaliDate(1403, 12, 1).monthLength, 30);
-      expect(JalaliDate(1404, 12, 1).monthLength, 29);
+      expect(const JalaliDate(1403, 12, 1).monthLength, 30);
+      expect(const JalaliDate(1404, 12, 1).monthLength, 29);
     });
 
     test("week starts Saturday: 0 = شنبه … 6 = جمعه", () {

@@ -15,6 +15,8 @@ Next.js و Vite · Tailwind v4 · بدون وابستگی اضافه · رایگ
 </div>
 
 > Persian RTL components for React + Tailwind. Copy the file, run `npx vibefarsi add`, or let Cursor / Claude Code pull it over MCP. The rest of this README is in Persian; the commands are not.
+>
+> **Flutter:** the whole registry is also ported to Flutter/Dart under [`flutter/`](flutter/) — same design tokens, Persian digits, Jalali calendar and Iranian validation, now as native widgets. See the فلاتر section below.
 
 <div dir="rtl">
 
@@ -148,6 +150,76 @@ get_component(["input", "price", "button"])
 | [سیستم‌های طراحی](https://vibefarsi.ir/themes) | ۶ | گرافیت (پیش‌فرض)، فیروزه، زعفران، انار، لاجورد، کاغذ (روشن) |
 | [مهارت‌ها](https://vibefarsi.ir/skills) | ۱۰ | فایل‌های SKILL.md برای Claude Code، Cursor و Codex: فارسی محاوره‌ای و رسمی، متن رابط کاربری، رابط راست‌چین، تقویم شمسی، اعتبارسنجی ایرانی، سئوی فارسی، و دو راهنما برای CLAUDE.md و تایپوگرافی |
 
+## پشتیبانی فلاتر و دارت 🎯
+
+همان کامپوننت‌های وایب‌فارسی، این بار برای **فلاتر**. کل رجیستری به Dart پورت شده: همان زبان طراحی (توکن‌های گرافیت)، همان اعداد فارسی، همان تقویم شمسی و اعتبارسنجی ایرانی — این بار داخل ویجت‌های بومی فلاتر.
+
+شروع سریع، در یک پروژه‌ی فلاتر:
+
+</div>
+
+```bash
+flutter pub add vibefarsi   # یا وابستگی path به flutter/ همین مخزن
+```
+
+<div dir="rtl">
+
+تم و جهت را یک‌بار ست کنید؛ از این به بعد همه‌ی ویجت‌ها راست‌چین و فارسی‌اند:
+
+</div>
+
+```dart
+import 'package:vibefarsi/vibefarsi.dart';
+
+MaterialApp(
+  theme: VibeTheme.dark(),          // یا VibeTheme.light() / VibeTheme.withTokens(VibeTokens.saffron, ...)
+  locale: const Locale("fa", "IR"),
+  builder: (context, child) => Directionality(
+    textDirection: TextDirection.rtl,
+    child: child!,
+  ),
+)
+```
+
+<div dir="rtl">
+
+بعد مثل وب از کامپوننت‌ها استفاده کنید:
+
+</div>
+
+```dart
+VibeButton(onPressed: submit, child: const Text("ثبت سفارش"))
+
+VibePrice(amount: 12500000)                       // ۱۲٬۵۰۰٬۰۰۰ تومان
+
+VibeDatePicker(
+  value: _date,
+  onChanged: (d) => setState(() => _date = d),    // تقویم شمسی با تعطیلات رسمی
+)
+
+VibeCardNumberInput(onChanged: (digits, valid, bank) { /* … */ })  // تشخیص بانک از BIN
+```
+
+<div dir="rtl">
+
+### چه چیزهایی در پکیج فلاتر هست
+
+| بخش | شامل |
+| --- | --- |
+| پایه | <code dir="ltr">fa / faNumber / formatToman / faFileSize</code> · تقویم شمسی (Borkowski) · هجری قمری با جدول رسمی ایران · تعطیلات رسمی ۱۴۰۴/۱۴۰۵ · اعتبارسنجی موبایل/شبا/کدملی/کارت/پلاک/کدپستی · تقسیمات کشوری ۳۱ استان |
+| ویجت‌های UI | دکمه، ورودی، فیلدهای ایرانی (شبا، کدملی، کارت، پلاک با ظاهر پلاک فلزی)، انتخابگر استان/شهر، سلکت، کمبوباکس با تطبیق نرم فارسی، OTP، جدول و جدول داده، تب، آکاردئون، سایدبار، توست، منو، پاپ‌آور، مودال، کروسل و… |
+| تقویم | نمای ماه با تعطیلات رنگی و تاریخ قمری دوم، انتخابگر تاریخ و بازه، نمای سال، شمارش معکوس، انتخابگر نوبت، برنامه‌ی شیفت، گانت با ستون‌های تعطیل |
+| نمودار | خطی/ناحیه‌ای/میله‌ای/دونات با fl_chart + رادار، گیج، قیف، هیت‌مپ شمسی، اسپارک‌لاین — همه با ارقام فارسی |
+| آموزش | طرح دوره، کوییز تعاملی، تصویر نقطه‌دار، پوسته‌ی پخش‌کننده |
+| حرکت و پس‌زمینه | ورود پلکانی، شمارنده، تایپ‌رایتر، شیمر، نوار متحرک، لرزش خطا + گرید/نقطه/موج/ستاره/آرورا با CustomPaint |
+| تم‌ها | هر ۶ تم رسمی رجیستری: <code dir="ltr">VibeTokens.dark / .light / .lapis / .paper / .pomegranate / .saffron / .turquoise</code> |
+
+قوانین پورت — چیزهایی مثل «رنگ فقط از توکن»، «ارقام عددی LTR داخل RTL» و «فشرده‌ی ۰٫۹۸» — در [`flutter/PORTING.md`](flutter/PORTING.md) مستند است.
+
+اپ نمونه با همه‌ی دسته‌ها: <code dir="ltr">cd flutter/example && flutter run</code> · تست‌ها: <code dir="ltr">cd flutter && flutter test</code>
+
+> **وضعیت:** پکیج فلاتر فعلاً در همین مخزن نگه‌داری می‌شود و هنوز روی pub.dev منتشر نشده؛ تا انتشار، وابستگی را با path به پوشه‌ی <code dir="ltr">flutter/</code> بدهید.
+
 ## توسعه روی همین مخزن
 
 سایت، رجیستری، CLI و سرور MCP همه در همین مخزن هستن. همه‌چیز از پوشه‌ی `registry` می‌آد. سایت همان فایل‌ها را نشون میده و مسیر <code dir="ltr">/r</code> هم همان‌ها را به CLI و MCP میده.
@@ -163,6 +235,7 @@ get_component(["input", "price", "button"])
 | سایت | `shiki` برای هایلایت کد · `zod` |
 | MCP | `@modelcontextprotocol/server` · پکیج `@vibefarsi/mcp` (Node ۲۰+) |
 | CLI | TypeScript خالص · پکیج `vibefarsi` روی npm |
+| فلاتر | Dart ۳٫۶+ · Flutter ۳٫۲۷+ · `fl_chart` (فقط نمودارها) |
 | استقرار | Liara · پورت ۳۰۰۰ |
 
 انیمیشن‌ها با CSS و React هستن؛ Framer Motion و GSAP داخل رجیستری نمی‌آد. تقویم و اعتبارسنجی ایرانی هم داخل `lib/` خود مخزنه، نه پکیج جدا.
