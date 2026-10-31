@@ -1,0 +1,25 @@
+name: vibefarsi
+description: >-
+  کامپوننت‌های فارسی وایب‌فارسی برای فلاتر — راست‌چین از پایه، اعداد فارسی، تومان و
+  تقویم شمسی داخل خود ویجت‌ها. پورت رسمی رجیستری وایب‌فارسی (React + Tailwind) به Flutter.
+version: 0.1.0
+homepage: https://vibefarsi.ir
+repository: https://github.com/pedramgholizadeh/vibefarsiui-plus
+issue_tracker: https://github.com/pedramgholizadeh/vibefarsiui-plus/issues
+documentation: https://vibefarsi.ir
+topics: [persian, rtl, jalali, ui-components, iran]
+funding: []
+
+environment:
+  sdk: ^3.6.0
+  flutter: ">=3.27.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  fl_chart: ^1.0.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0

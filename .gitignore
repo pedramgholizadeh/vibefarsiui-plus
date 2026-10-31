@@ -50,3 +50,13 @@ __pycache__/
 # Claude Code / Cursor (local)
 .claude/
 .cursor/
+
+# Flutter / Dart
+flutter/build/
+flutter/**/build/
+.dart_tool/
+flutter/.dart_tool/
+flutter/example/.dart_tool/
+/pubspec.lock
+flutter/pubspec.lock
+flutter/example/pubspec.lock
