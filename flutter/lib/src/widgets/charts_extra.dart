@@ -18,8 +18,10 @@ class VibeRadarChart extends StatelessWidget {
   Widget build(BuildContext context) {
     final t = context.vibe;
     final palette = vibeChartPalette(t);
-    return RadarChart(
-      RadarChartData(
+    return SizedBox(
+      height: height,
+      child: RadarChart(
+        RadarChartData(
         dataSets: [
           for (var i = 0; i < series.length; i++)
             RadarDataSet(
@@ -40,6 +42,7 @@ class VibeRadarChart extends StatelessWidget {
           positionPercentageOffset: 0.12,
         ),
         ticksTextStyle: TextStyle(fontSize: 9, color: t.mutedForeground),
+      ),
       ),
     );
   }

@@ -182,8 +182,10 @@ class VibeLineChart extends StatelessWidget {
     final palette = vibeChartPalette(t);
     final maxLen = series.map((s) => s.points.length).fold(0, (a, b) => a > b ? a : b);
 
-    return LineChart(
-      LineChartData(
+    return SizedBox(
+      height: height,
+      child: LineChart(
+        LineChartData(
         gridData: vibeGrid(t),
         borderData: vibeBorder(t),
         titlesData: vibeTitles(t, bottomLabels: bottomLabels),
@@ -228,6 +230,7 @@ class VibeLineChart extends StatelessWidget {
         minY: 0,
         maxX: (maxLen - 1).toDouble(),
       ),
+      ),
     );
   }
 }
@@ -253,8 +256,10 @@ class VibeBarChart extends StatelessWidget {
     final palette = vibeChartPalette(t);
     final groupCount = series.map((s) => s.points.length).fold(0, (a, b) => a > b ? a : b);
 
-    return BarChart(
-      BarChartData(
+    return SizedBox(
+      height: height,
+      child: BarChart(
+        BarChartData(
         gridData: vibeGrid(t),
         borderData: vibeBorder(t),
         titlesData: vibeTitles(t, bottomLabels: bottomLabels),
@@ -281,6 +286,7 @@ class VibeBarChart extends StatelessWidget {
               ],
             ),
         ],
+      ),
       ),
     );
   }
@@ -324,7 +330,9 @@ class VibePieChart extends StatelessWidget {
     final palette = vibeChartPalette(t);
     final total = slices.fold(0.0, (a, s) => a + s.value);
 
-    final chart = PieChart(
+    final chart = SizedBox(
+      height: height,
+      child: PieChart(
       PieChartData(
         sectionsSpace: 2,
         centerSpaceRadius: holeRadius,
@@ -342,6 +350,7 @@ class VibePieChart extends StatelessWidget {
               titleStyle: TextStyle(fontSize: 11, fontWeight: FontWeight.w600, color: t.background),
             ),
         ],
+      ),
       ),
     );
 

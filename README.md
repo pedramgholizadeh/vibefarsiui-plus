@@ -154,6 +154,18 @@ get_component(["input", "price", "button"])
 
 همان کامپوننت‌های وایب‌فارسی، این بار برای **فلاتر**. کل رجیستری به Dart پورت شده: همان زبان طراحی (توکن‌های گرافیت)، همان اعداد فارسی، همان تقویم شمسی و اعتبارسنجی ایرانی — این بار داخل ویجت‌های بومی فلاتر.
 
+<div dir="ltr">
+
+| | | |
+| --- | --- | --- |
+| ![کامپوننت‌ها](docs/screenshots/01-components.png) | ![فیلدهای ایرانی](docs/screenshots/02-iranian-fields.png) | ![بلاک‌ها](docs/screenshots/03-blocks.png) |
+| ![نمودارها](docs/screenshots/04-charts.png) | ![تقویم](docs/screenshots/05-calendar.png) | ![انیمیشن‌ها](docs/screenshots/06-animations.png) |
+| ![پس‌زمینه‌ها](docs/screenshots/07-backgrounds.png) | ![سیستم‌های طراحی](docs/screenshots/08-themes.png) | |
+
+</div>
+
+اپ نمایشی کامل با همین دسته‌بندی‌ها داخل مخزن است: <code dir="ltr">cd flutter/example && flutter run</code>
+
 شروع سریع، در یک پروژه‌ی فلاتر:
 
 </div>

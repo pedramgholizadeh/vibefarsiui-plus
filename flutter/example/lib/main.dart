@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:vibefarsi/vibefarsi.dart';
 
 import 'showcase/animations_page.dart';
@@ -28,6 +29,11 @@ class VibeFarsiShowcaseApp extends StatelessWidget {
       themeMode: ThemeMode.dark,
       locale: const Locale("fa", "IR"),
       supportedLocales: const [Locale("fa", "IR")],
+      localizationsDelegates: const [
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
       builder: (context, child) => Directionality(
         textDirection: TextDirection.rtl,
         child: child!,

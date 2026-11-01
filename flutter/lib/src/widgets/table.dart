@@ -57,23 +57,36 @@ class VibeTable extends StatelessWidget {
             border: Border.all(color: t.border),
           ),
           clipBehavior: Clip.antiAlias,
-          child: SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: ConstrainedBox(
-              constraints: BoxConstraints(minWidth: MediaQuery.sizeOf(context).width - 32),
-              child: Column(
+          // ستون‌های بدون عرض، Expanded می‌خواهند؛ پس فقط وقتی عرض‌های ثابت
+          // از فضای موجود می‌گذرد اسکرول افقی روشن می‌شود و بقیه‌ی ستون‌ها
+          // عرض پیش‌فرض می‌گیرند (Expanded داخل عرض بی‌کران غیرمجاز است).
+          child: LayoutBuilder(
+            builder: (context, constraints) {
+              const minWidthPerFlex = 120.0;
+              final fixedTotal = columns.fold(0.0, (a, c) => a + (c.width ?? 0));
+              final flexCount = columns.where((c) => c.width == null).length;
+              final overflows = fixedTotal + flexCount * minWidthPerFlex > constraints.maxWidth;
+              Widget grid = Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  _HeaderRow(columns: columns),
+                  _HeaderRow(columns: columns, flexFallback: overflows ? minWidthPerFlex : null),
                   for (var i = 0; i < rows.length; i++)
                     _BodyRow(
                       columns: columns,
                       row: rows[i],
                       last: i == rows.length - 1,
+                      flexFallback: overflows ? minWidthPerFlex : null,
                     ),
                 ],
-              ),
-            ),
+              );
+              if (overflows) {
+                grid = SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: grid,
+                );
+              }
+              return grid;
+            },
           ),
         ),
         if (caption != null)
@@ -92,7 +105,10 @@ class VibeTable extends StatelessWidget {
 class _HeaderRow extends StatelessWidget {
   final List<VibeTableColumn> columns;
 
-  const _HeaderRow({required this.columns});
+  /// وقتی جدول سرریز می‌شود، ستون‌های بدون عرض این عرض را می‌گیرند.
+  final double? flexFallback;
+
+  const _HeaderRow({required this.columns, this.flexFallback});
 
   @override
   Widget build(BuildContext context) {
@@ -105,7 +121,7 @@ class _HeaderRow extends StatelessWidget {
           for (var i = 0; i < columns.length; i++)
             _cell(
               context,
-              width: columns[i].width,
+              width: columns[i].width ?? flexFallback,
               child: DefaultTextStyle.merge(
                 style: TextStyle(fontSize: 12, color: t.mutedForeground, fontWeight: FontWeight.w500),
                 child: columns[i].header,
@@ -122,7 +138,10 @@ class _BodyRow extends StatefulWidget {
   final VibeTableRowData row;
   final bool last;
 
-  const _BodyRow({required this.columns, required this.row, required this.last});
+  /// همان منطق سرریزِ [_HeaderRow].
+  final double? flexFallback;
+
+  const _BodyRow({required this.columns, required this.row, required this.last, this.flexFallback});
 
   @override
   State<_BodyRow> createState() => _BodyRowState();
@@ -156,7 +175,7 @@ class _BodyRowState extends State<_BodyRow> {
               for (var i = 0; i < widget.columns.length; i++)
                 _cell(
                   context,
-                  width: widget.columns[i].width,
+                  width: widget.columns[i].width ?? widget.flexFallback,
                   numeric: widget.columns[i].numeric,
                   child: widget.row.cells[i],
                 ),
@@ -176,5 +195,6 @@ Widget _cell(BuildContext context, {double? width, bool numeric = false, require
     // ارقام همیشه داخل خودشان LTR خوانده می‌شوند، حتی وسط متن راست‌چین.
     child: numeric ? Directionality(textDirection: TextDirection.ltr, child: child) : child,
   );
+  // عرض null فقط وقتی مجاز است که ردیف در عرض محدود باشد (بدون سرریز).
   return width != null ? SizedBox(width: width, child: body) : Expanded(child: body);
 }
