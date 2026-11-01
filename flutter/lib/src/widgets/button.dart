@@ -106,7 +106,10 @@ class _VibeButtonState extends State<VibeButton> {
       );
     }
 
-    return AnimatedScale(
+    // داخل Wrap/Row محدودیت شل است؛ Container با alignment تا max عرض گسترش
+    // می‌شود، پس عرض را به اندازه‌ی intrinsic خودش محدود می‌کنیم.
+    return IntrinsicWidth(
+      child: AnimatedScale(
       scale: _pressed && enabled ? VibePress.scale : 1.0,
       duration: VibeMotion.duration,
       curve: VibeMotion.ease,
@@ -136,6 +139,7 @@ class _VibeButtonState extends State<VibeButton> {
             ),
           ),
         ),
+      ),
       ),
     );
   }
