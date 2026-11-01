@@ -1,13 +1,12 @@
 # قرارداد پورت وایب‌فارسی به فلاتر
 
-این سند قانون پورت کامپوننت‌های `registry/*.tsx` به `flutter/lib/src/widgets/` است.
+این سند قانون پورت کامپوننت‌های `registry/*.tsx` وب به `lib/src/widgets/` است (ساختار فعلی مخزن در AGENTS.md).
 هر ویجت باید «مثل یک ویجت بومی فلاتر» باشد، نه ترجمه‌ی واژه‌به‌واژه‌ی DOM.
 
 ## ساختار پکیج
 
 ```
-flutter/
-  lib/
+lib/
     vibefarsi.dart            ← barrel؛ فقط اینجا export می‌شود (ایجنت‌ها دست نمی‌زنند)
     src/
       theme.dart              ← VibeTokens (ThemeExtension)، VibeTheme.dark/light، VibeRadius/Motion/Press
@@ -65,6 +64,6 @@ flutter/
 
 ## قبل از تحویل
 
-- `dart analyze` در `flutter/` باید بدون error و بدون warning جدید باشد.
+- `dart analyze .` در ریشه‌ی مخزن باید بدون error و بدون warning جدید باشد.
 - هیچ `// TODO` یا کد کامنت‌شده باقی نماند.
 - فایل‌های دیگران (barrel، theme، foundation) ویرایش نشوند؛ اگر چیزی در foundation کم است، در گزارش بنویسید.

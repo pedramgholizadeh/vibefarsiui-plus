@@ -1,62 +1,22 @@
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
-
-# dependencies
-/node_modules
-/.pnp
-.pnp.*
-.yarn/*
-!.yarn/patches
-!.yarn/plugins
-!.yarn/releases
-!.yarn/versions
-
-# testing
-/coverage
-
-# next.js
-/.next/
-/out/
-
-# production
-/build
-
-# misc
-.DS_Store
-*.pem
-
-# debug
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-.pnpm-debug.log*
-
-# env files
-.env*
-
-# first-party analytics
-/data/
-
-# vercel
-.vercel
-
-# typescript
-*.tsbuildinfo
-next-env.d.ts
-
-# Python bytecode
-__pycache__/
-*.pyc
-
-# Claude Code / Cursor (local)
-.claude/
-.cursor/
-
-# Flutter / Dart
-flutter/build/
-flutter/**/build/
+# Dart / Flutter
 .dart_tool/
-flutter/.dart_tool/
-flutter/example/.dart_tool/
-/pubspec.lock
-flutter/pubspec.lock
-flutter/example/pubspec.lock
+build/
+pubspec.lock
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+
+# IDE
+.idea/
+*.iml
+.vscode/
+*.swp
+
+# macOS
+.DS_Store
+
+# Test coverage
+coverage/
+
+# Env
+.env*
